@@ -36,7 +36,7 @@
     function geocode(e){
         // Prevent actual submit
         e.preventDefault();
-        var location = '222 Bush street San Francisco CA';
+        var location = document.getElementById('location-input').value;
         axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
           params:{
             address:location,
