@@ -12,7 +12,10 @@
   <title>Google Maps Geocode API</title>
 </head>
 <body>
-  <div id="formatted_address"></div>
+  <div class="container">
+    <div id="formatted_address"></div>
+    <div id="address-components"></div>
+  </div>
   <script>
     // Call geocode
     geocode();
@@ -24,7 +27,8 @@
             address:location,
             key:'AIzaSyASQ8gJ4totuRg718n1fj90M4p_myA9s0c'
           }
-        }).then(function(response){
+        })
+        .then(function(response){
           // Log full response
           console.log(response);
           // Formatted Address
@@ -34,8 +38,21 @@
               <li class="list-group-item">${formattedAddress}</li>
             </ul>
           `;
+
+          // Address components
+          var addressComponents = response.data.results[0].address_components;
+          var addressComponentsOutput = '<ul class="list-group">';
+          for(var i = 0 ; i < addressComponents.length ; i++){
+              addressComponentsOutput += `
+                <li class="list-group-item"><strong>${addressComponents[i].types[0]}</strong>: ${addressComponents[i].long_name}</li>
+              `;
+          }
+          addressComponentsOutput += '</ul>';
+
+
           // Output to app
           document.getElementById('formatted_address').innerHTML = formattedAddressOutput;
+          document.getElementById('address-components').innerHTML = addressComponentsOutput;
         })
         .catch(function(error){
           console.log(error);
