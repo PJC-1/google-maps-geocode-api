@@ -25,9 +25,17 @@
   </div>
   <script>
     // Call geocode
-    geocode();
+    // geocode();
 
-    function geocode(){
+    // Get location form
+    var locationForm = document.getElementById('location-form');
+
+    // Listen for submit
+    locationForm.addEventListener('submit', geocode);
+
+    function geocode(e){
+        // Prevent actual submit
+        e.preventDefault();
         var location = '222 Bush street San Francisco CA';
         axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
           params:{
